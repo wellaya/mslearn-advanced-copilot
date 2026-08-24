@@ -6,6 +6,43 @@ Gain more practical experience by using this repository that contains a Python W
 
 [![Powered by Awesome Copilot](https://img.shields.io/badge/Powered_by-Awesome_Copilot-blue?logo=githubcopilot)](https://aka.ms/awesome-github-copilot)
 
+## Get started
+
+### Use GitHub Codespaces
+
+Select **Open in GitHub Codespaces** at the top of this page. The dev container uses Python 3.10 and installs the dependencies. After the container is ready, start the application from the terminal:
+
+```bash
+/home/vscode/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Run locally
+
+Python 3.10 or later is recommended. From the repository root, create and activate a virtual environment, install the dependencies, and start the API:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+The application is available at <http://localhost:8000>. The root URL redirects to the interactive API documentation at <http://localhost:8000/docs>. Other useful endpoints include:
+
+```text
+GET /countries
+GET /countries/{country}
+GET /countries/{country}/{city}/{month}
+```
+
+Run the test suite from the repository root in a second terminal:
+
+```bash
+pytest
+```
+
+Stop the development server with `Ctrl+C`. If you created a local virtual environment, leave it with `deactivate`.
+
 ## Requirements
 
 1. Enable your [GitHub Copilot service](https://github.com/github-copilot/signup)

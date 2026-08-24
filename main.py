@@ -3,6 +3,7 @@ from os.path import dirname, abspath, join
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.testclient import TestClient
 
 
 current_dir = dirname(abspath(__file__))
@@ -31,6 +32,19 @@ def countries():
     return list(data.keys())
 
 
+@app.get('/countries/{country}')
+def cities(country: str):
+    return list(data[country].keys())
+
+
+def test_cities_spain():
+    client = TestClient(app)
+    response = client.get('/countries/Spain')
+
+    assert response.status_code == 200
+    assert response.json() == list(data['Spain'].keys())
+
+
 @app.get('/countries/{country}/{city}/{month}')
 def monthly_average(country: str, city: str, month: str):
     return data[country][city][month]
@@ -39,3 +53,4 @@ def monthly_average(country: str, city: str, month: str):
 openapi_schema = app.openapi()
 with open(join(wellknown_path, "openapi.json"), "w") as f:
     json.dump(openapi_schema, f)
+
